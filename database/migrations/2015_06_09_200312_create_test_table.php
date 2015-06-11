@@ -12,7 +12,7 @@ class CreateTestTable extends Migration
      */
     public function up()
     {
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->increments('id');
             $table->string('note');
             $table->string('ggets')->index()->unique();
@@ -28,6 +28,6 @@ class CreateTestTable extends Migration
      */
     public function down()
     {
-        Schema::drop('test');
+        Schema::drop('tests');
     }
 }
