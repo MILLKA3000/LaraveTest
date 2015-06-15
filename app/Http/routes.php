@@ -19,29 +19,12 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-Route::get('/', [
-    'middleware' => 'auth',
-    'uses' => 'DashboardController@index'
-]);
+Route::group(['as' => 'test','middleware' => 'auth'], function () {
+    Route::get('/', ['as' => 'index','uses'=>'DashboardController@index']);
+    Route::get('/user/{id}/show', 'UserController@show');
+    Route::get('/user/{id}/edit', 'UserController@edit');
+    Route::post('/user/{id}/update', 'UserController@update');
+    Route::get('/user/{id}/delete', 'UserController@destroy');
+    Route::get('/test', 'TestController@index');
 
-
-
-Route::get('test', ['as'=>'index','uses'=>'TestController@index']);
-
-
-Route::group(['as' => 'test'], function () {
-    Route::get('test', ['as' => 'index','uses'=>'TestController@index']);
-    Route::get('name/{name}', function ($name) {
-        return $name;
-    })->where('name', '[a-z]+');
 });
-
-
-
-Route::get('user/{id}/profile', ['as' => 'profile','uses'=>'TestController@index', function ($id) {
-
-}]);
-
-
-
-$url = route('profile', ['id' => 1]);
