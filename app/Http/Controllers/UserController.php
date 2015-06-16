@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
+use App\User;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+use Flash;
 
 class UserController extends Controller
 {
@@ -16,7 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        Flash::message('Welcome to Dashboard!');
+        $user = User::all();
+        return view('dashboard.hello', ['users' => $user]);
     }
 
     /**
@@ -24,9 +27,11 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(UserController $user)
     {
-        //
+
+        $url = '/user/store';
+        return view('dashboard.user.create', ['user' => $user,'url'=>$url]);
     }
 
     /**
@@ -36,7 +41,24 @@ class UserController extends Controller
      */
     public function store()
     {
-        //
+        $input = \Input::all();
+
+        $validation = Validator::make($input, User::$rules_create);
+
+        if($validation->fails()){
+            Flash::error('User not created!');
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($validation)
+                ->with('message', 'There were validation errors.');
+        }
+
+        if($validation->passes()){
+            $input['password'] = bcrypt($input['password']);
+            User::create($input);
+            Flash::success('User created!');
+            return redirect('/');
+        }
     }
 
     /**
@@ -45,10 +67,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(UserController $user)
     {
-        $user = DB::table('users')->where('id', $id)->get();
-        return view('dashboard.user.edit', ['user' => $user]);
+//        $user = User::all();
+        return view('dashboard.user.show', ['user' => $user]);
     }
 
     /**
@@ -59,7 +81,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = DB::table('users')->where('id', $id)->get();
+        $user = User::find($id);
         $url = '/user/'.$id.'/update';
         return view('dashboard.user.edit', ['user' => $user,'url'=>$url]);
     }
@@ -72,10 +94,24 @@ class UserController extends Controller
      */
     public function update($id)
     {
+        $input = \Input::all();
 
-        $user->fill($request->all());
-        $user->save();
-        return redirect('/');
+        $validation = Validator::make($input, User::$rules);
+
+        if($validation->fails()){
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($validation)
+                ->with('message', 'There were validation errors.');
+        }
+
+        if($validation->passes()){
+            $user = User::FindOrFail($id);
+            $input['password'] = bcrypt($input['password']);
+            $user->update($input);
+
+            return redirect('/');
+        }
     }
 
     /**
@@ -86,17 +122,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('users')->where('id', $id)->delete();
+        User::destroy($id);
         return redirect('/');
     }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'fname' => 'required|max:255',
-            'lname' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    }
 }

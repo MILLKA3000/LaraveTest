@@ -32,4 +32,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+
+    public static $rules = [
+        'fname' => 'required|max:255',
+        'lname' => 'required|max:255',
+        'password' => 'required|confirmed|min:6'
+    ];
+
+    public static $rules_create = [
+        'fname' => 'required|max:255',
+        'lname' => 'required|max:255',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required|confirmed|min:6'
+    ];
+
 }

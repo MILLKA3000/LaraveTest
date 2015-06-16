@@ -5,7 +5,8 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Edit User: {{$user->fname}} {{$user->lname}} </div>
+
+                <div class="panel-heading">Edit User:  </div>
                 <div class="panel-body">
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -23,14 +24,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">First Name</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="fname" value="{{ $user->fname }}">
+                                <input type="text" class="form-control" name="fname" value="{{ old('fname') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Last Name</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="lname" value="{{ $user->lname }}">
+                                <input type="text" class="form-control" name="lname" value="{{ old('lname') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">E-Mail Address</label>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                             </div>
                         </div>
 
@@ -57,6 +65,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
