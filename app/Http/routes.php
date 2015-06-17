@@ -1,5 +1,9 @@
 <?php
 
+View::composer('menu.left', function($view){
+    $view->with('menuitems', App\category::all());
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,22 +23,23 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-Route::group(['as' => 'test','middleware' => 'auth'], function () {
-    Route::get('/', ['as' => 'index','uses'=>'UserController@index']);
-    Route::get('/user/{id}/show', 'UserController@show');
-    Route::get('/user/{id}/index', 'UserController@index');
-    Route::get('/user/{id}/edit', 'UserController@edit');
-    Route::get('/user/create', 'UserController@create');
-    Route::post('/user/{id}/update', 'UserController@update');
-    Route::post('/user/store', 'UserController@store');
-    Route::get('/user/{id}/delete', 'UserController@destroy');
-    Route::get('/test', 'TestController@index');
+Route::group(['as' => 'dashboard','middleware' => 'auth'], function () {
+    Route::get('dashboard/', ['as' => 'index','uses'=>'DashboardController@index']);
+    Route::get('dashboard/user/{id}/show', 'UserController@show');
+    Route::get('dashboard/user/index', 'UserController@index');
+    Route::get('dashboard/user/{id}/edit', 'UserController@edit');
+    Route::get('dashboard/user/create', 'UserController@create');
+    Route::post('dashboard/user/{id}/update', 'UserController@update');
+    Route::post('dashboard/user/store', 'UserController@store');
+    Route::get('dashboard/user/{id}/delete', 'UserController@destroy');
+    Route::get('dashboard/test', 'TestController@index');
 
 });
 
-Route::get('/product/{id}/category', 'ProductsController@index');
-Route::resource('product', 'ProductsController');
+Route::get('/category/{id}/show', 'CategoryController@index');
+Route::get('/', 'ProductsController@index');
 
+Route::resource('product', 'ProductsController');
 Route::resource('indigrient', 'IndigrientController');
 
 

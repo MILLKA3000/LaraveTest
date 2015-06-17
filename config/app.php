@@ -144,7 +144,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
-        App\Providers\MilkaServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class
 
     ],

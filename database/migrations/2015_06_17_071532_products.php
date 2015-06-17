@@ -20,7 +20,10 @@ class Products extends Migration
                 $table->string('pictureurl',100);
                 $table->integer('price');
                 $table->integer('discount');
+                $table->integer('active')->default(1);
+                $table->integer('arhive')->default(1);
                 $table->string('title',150);
+                $table->timestamps();
             });
     }
 

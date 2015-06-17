@@ -13,9 +13,12 @@ class category extends Seeder
     {
         DB::table('category')->delete();
         $category = [
-            ['id'=>1,'name' => 'Категорія1','title' => '---'],
-            ['id'=>2,'name' => 'Категорія2','title' => '---'],
-            ['id'=>3,'name' => 'Категорія3','title' => '---'],
+            ['id'=>1,'name' => 'Холодні закуски','active' => 1],
+            ['id'=>2,'name' => 'Гарніри','active' => 1],
+            ['id'=>3,'name' => 'Гарячі страви','active' => 1],
+            ['id'=>4,'name' => 'Рибні страви','active' => 1],
+            ['id'=>5,'name' => 'Піци','active' => 1],
+            ['id'=>5,'name' => 'Випивка','active' => 0],
         ];
         DB::table('category')->insert($category);
     }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
+use Flash;
+use App\Product;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,8 +16,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-       $users = DB::table('users')->get();
-       return view('dashboard.hello', ['users' => $users]);
+        Flash::message('Вітаємо вас в адмін панелі!!');
+
+        return view('dashboard.hello', [
+            'products_count' => Product::all()->count(),
+            'products_arhive_count'=>Product::all()->where('arhive',0)->count()]);
     }
 
     /**

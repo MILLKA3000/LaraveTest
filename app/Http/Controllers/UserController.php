@@ -17,9 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        Flash::message('Welcome to Dashboard!');
         $user = User::all();
-        return view('dashboard.hello', ['users' => $user]);
+        return view('dashboard.user.index', ['users' => $user]);
     }
 
     /**
@@ -30,7 +29,7 @@ class UserController extends Controller
     public function create(UserController $user)
     {
 
-        $url = '/user/store';
+        $url = '/dashboard/user/store';
         return view('dashboard.user.create', ['user' => $user,'url'=>$url]);
     }
 
@@ -57,7 +56,7 @@ class UserController extends Controller
             $input['password'] = bcrypt($input['password']);
             User::create($input);
             Flash::success('User created!');
-            return redirect('/');
+            return redirect('/dashboard/');
         }
     }
 
@@ -82,7 +81,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $url = '/user/'.$id.'/update';
+        $url = '/dashboard/user/'.$id.'/update';
         return view('dashboard.user.edit', ['user' => $user,'url'=>$url]);
     }
 
@@ -110,7 +109,7 @@ class UserController extends Controller
             $input['password'] = bcrypt($input['password']);
             $user->update($input);
 
-            return redirect('/');
+            return redirect('/dashboard/');
         }
     }
 

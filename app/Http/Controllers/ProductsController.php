@@ -16,9 +16,13 @@ class ProductsController extends Controller
      *
      * @return Response
      */
-    public function index($category)
+    public function index()
     {
-        $products = Product::get()->where('category_id',(int)$category);
+        $products = Product::orderBy('id', 'desc')
+            ->where('active',1)
+            ->where('arhive',1)
+            ->take(5)
+            ->get();
         foreach ($products as $product){
             $q = $product->indigrients()->get();
             $name_indigradient = [];
@@ -27,6 +31,7 @@ class ProductsController extends Controller
             }
             $product->name_indigradient = $name_indigradient;
         }
+        $products->titletext = 'Новинки';
 
         return view('product.index', ['products' => $products]);
     }
