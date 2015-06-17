@@ -59,7 +59,16 @@
         {{ Session::get('flash_notification.message') }}
     </div>
     @endif
-	@yield('content')
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 left">
+            @include('menu.left')
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            @yield('content')
+        </div>
+    </div>
+
+
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

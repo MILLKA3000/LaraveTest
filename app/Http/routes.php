@@ -31,3 +31,11 @@ Route::group(['as' => 'test','middleware' => 'auth'], function () {
     Route::get('/test', 'TestController@index');
 
 });
+
+Route::get('/product/{id}/category', 'ProductsController@index');
+Route::resource('product', 'ProductsController');
+
+Route::resource('indigrient', 'IndigrientController');
+
+
+
