@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Validator;
 use Flash;
 
@@ -124,5 +125,10 @@ class UserController extends Controller
         User::destroy($id);
         return redirect('/');
     }
+
+    public function MyCart(){
+        return view('cart.myCart', ['data' => Cookie::get('cart')]);
+    }
+
 
 }

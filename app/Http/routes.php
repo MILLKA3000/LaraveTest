@@ -70,6 +70,8 @@ Route::group(['as' => 'dashboard','middleware' => 'auth'], function () {
 
 Route::get('/category/{id}/show', 'CategoryController@index');
 Route::get('/', 'ProductsController@index');
+Route::post('/cart/add', 'ProductsController@CartAdd');
+Route::get('/my/cart', 'UserController@MyCart');
 
 Route::resource('product', 'ProductsController');
 Route::resource('indigrient', 'IndigrientController');
