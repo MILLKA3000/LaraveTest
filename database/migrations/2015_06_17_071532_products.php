@@ -22,6 +22,7 @@ class Products extends Migration
                 $table->integer('discount');
                 $table->integer('active')->default(1);
                 $table->integer('arhive')->default(1);
+                $table->integer('time');
                 $table->string('title',150);
                 $table->timestamps();
             });

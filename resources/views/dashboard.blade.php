@@ -19,7 +19,7 @@
     <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="margin-bottom: 2px;">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -34,9 +34,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav navbar-right">
-                <li> <a href="{{ url('/') }}">Корзина</a> </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->fname.' '.Auth::user()->lname }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ url('/auth/logout') }}">Вийти</a></li>
                     </ul>
@@ -45,6 +44,7 @@
         </div>
     </div>
 </nav>
+@include('dashboard.menu.top_menu')
 @if (Session::has('flash_notification.message'))
     <div class="alert alert-{{ Session::get('flash_notification.level') }}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -53,10 +53,10 @@
     </div>
 @endif
 <div class="row">
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 left">
-        @include('dashboard.menu.left_menu')
-    </div>
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+<!--    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 left">-->
+<!--        @include('dashboard.menu.left_menu')-->
+<!--    </div> -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         @yield('content')
     </div>
 </div>

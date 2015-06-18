@@ -23,14 +23,7 @@ class ProductsController extends Controller
             ->where('arhive',1)
             ->take(5)
             ->get();
-        foreach ($products as $product){
-            $q = $product->indigrients()->get();
-            $name_indigradient = [];
-            foreach ($q as $in){
-                array_push($name_indigradient,Indigrient::find($in->indigrient_id));
-            }
-            $product->name_indigradient = $name_indigradient;
-        }
+
         $products->titletext = 'Новинки';
 
         return view('product.index', ['products' => $products]);

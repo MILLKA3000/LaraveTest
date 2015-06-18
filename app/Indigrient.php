@@ -20,4 +20,10 @@ class Indigrient extends Model
         'title' => 'required|max:150'
     ];
 
+    public function getCategoryindigrient()
+    {
+        return $this->hasOne('App\Categoryindigrient', 'id','category_indigrient_id');
+    }
+
+
 }

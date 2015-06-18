@@ -18,7 +18,7 @@ class category extends Seeder
             ['id'=>3,'name' => 'Гарячі страви','active' => 1],
             ['id'=>4,'name' => 'Рибні страви','active' => 1],
             ['id'=>5,'name' => 'Піци','active' => 1],
-            ['id'=>5,'name' => 'Випивка','active' => 0],
+            ['id'=>6,'name' => 'Випивка','active' => 0],
         ];
         DB::table('category')->insert($category);
     }

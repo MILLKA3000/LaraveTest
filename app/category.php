@@ -8,9 +8,4 @@ class category extends Model
 {
     protected $table = 'category';
 
-    public function list_category()
-    {
-        return 450;
-
-    }
 }

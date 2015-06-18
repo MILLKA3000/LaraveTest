@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 
         // $this->call('UserTableSeeder');
         $this->call('category');
+        $this->call('categoryindigrient');
         $this->call('indigrients');
         $this->call('products');
         $this->call('prodtoindigrient');

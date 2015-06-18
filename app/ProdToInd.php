@@ -13,15 +13,16 @@ class ProdToInd extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','pictureurl','title'];
+    protected $fillable = ['product_id','indigrient_id','weight'];
 
     public static $rules = [
-        'weight' => 'required',
-        'title' => 'required|max:150'
+        'product_id' => 'required',
+        'indigrient_id' => 'required',
+        'weight' => 'required'
     ];
 
     public function indigrientname()
     {
-        return $this->hasManyThrough('App\Indigrient','App\ProdToInd','indigrient_id','id');
+        return $this->hasOne('App\Indigrient','id','indigrient_id');
     }
 }

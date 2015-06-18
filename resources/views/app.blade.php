@@ -42,8 +42,9 @@
 						<li><a href="{{ url('/auth/login') }}">Увійти</a></li>
 						<li><a href="{{ url('/auth/register') }}">Зареєструватись</a></li>
 					@else
+                        <li><a href="{{ url('/') }}">Корзина</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->fname.' '.Auth::user()->lname }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/dashboard/') }}">Адмін</a></li>
 								<li><a href="{{ url('/auth/logout') }}">Вийти</a></li>
@@ -66,7 +67,7 @@
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 left">
             @include('menu.left')
         </div>
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             @yield('content')
         </div>
     </div>
