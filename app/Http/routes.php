@@ -4,6 +4,10 @@ View::composer('menu.left', function($view){
     $view->with('menuitems', App\category::all()->where('active',1));
 });
 
+View::composer(['cart.shortlist','cart.myCart'], function($view){
+    $view->with('prod_cart', App\Product::getCart());
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

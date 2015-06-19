@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cookie;
 
 class Product extends Model
 {
@@ -22,6 +23,16 @@ class Product extends Model
         'time' => 'required|max:3'
     ];
 
+    static function total_price_one_qty($product)
+    {
+        return $product->price - ($product->price * ($product->discount/100));
+    }
+
+    static function total_price_all_qty($product)
+    {
+        return Product::total_price_one_qty($product)*$product->qty;
+    }
+
 
     public function indigrients()
     {
@@ -31,5 +42,20 @@ class Product extends Model
     public function getCategory()
     {
         return $this->hasOne('App\category', 'id','category_id');
+    }
+
+    static function getCart(){
+        $cookies_products = Cookie::get('cart');
+        $total_price =0;
+        $products = Product::find(array_flatten(array_pluck($cookies_products, 'product_id')));
+        foreach($products as $product){
+            foreach($cookies_products as $product_as_coocies) {
+                if ($product->id == $product_as_coocies['product_id']) {
+                    $product->qty = $product_as_coocies['qty'];
+                }
+            }
+            $total_price = $total_price + Product::total_price_all_qty($product);
+        }
+        return compact('products','total_price');
     }
 }

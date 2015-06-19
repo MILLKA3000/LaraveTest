@@ -19,3 +19,11 @@ $('.addattr').on('click',function(){
     })
 });
 
+$('.cart,.block-cart').hover(function(){
+    $('.block-cart').removeClass('hidden');
+    $('.block-cart').addClass('show');
+}, function() {
+    $('.block-cart').removeClass('show');
+    $('.block-cart').addClass('hidden');
+});
+
