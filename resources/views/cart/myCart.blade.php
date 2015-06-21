@@ -59,5 +59,4 @@
     <button type="submit" class="btn btn-primary center-block" style="margin-bottom: 20px;">
         Оформити заказ
     </button>
-
 @endsection
