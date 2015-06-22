@@ -46,8 +46,10 @@ class Product extends Model
 
     static function getCart(){
         $cookies_products = Cookie::get('cart');
+        if(!isset($cookies_products)) return false;
         $total_price =0;
         $products = Product::find(array_flatten(array_pluck($cookies_products, 'product_id')));
+
         foreach($products as $product){
             foreach($cookies_products as $product_as_coocies) {
                 if ($product->id == $product_as_coocies['product_id']) {

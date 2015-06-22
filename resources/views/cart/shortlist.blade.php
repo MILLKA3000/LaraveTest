@@ -1,7 +1,7 @@
 <div class="block-cart hidden" style="position: absolute;width: 300px;border:1px solid grey;border-radius: 4px;background-color: #f5f5f5;  z-index: 100;top: 40px;">
 
     <h3 style="margin:10px;">Ваш кошик:</h3>
-
+    @if(count($prod_cart['products'])>0 )
 
     <table class="table center-block" style="margin: 10px;width:250px">
         <tbody class="list-group-item-success">
@@ -12,6 +12,7 @@
             <td></td>
         </tr>
         </tbody>
+
     @foreach($prod_cart['products'] as $prod)
         <tr>
             <td>
@@ -41,4 +42,5 @@
     <button type="submit" class="btn btn-primary center-block" style="margin-bottom: 20px;">
         Оформити заказ
     </button>
+    @endif
 </div>

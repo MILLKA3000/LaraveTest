@@ -16,6 +16,7 @@
             <td></td>
         </tr>
         </tbody>
+        @if(count($prod_cart['products'])>0 )
         @foreach($prod_cart['products'] as $prod)
             <tr>
                 <td>
@@ -59,4 +60,5 @@
     <button type="submit" class="btn btn-primary center-block" style="margin-bottom: 20px;">
         Оформити заказ
     </button>
+    @endif
 @endsection
