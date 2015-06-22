@@ -37,8 +37,8 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                @include('cart.shortlist')
                 @if (Auth::guest())
-                    <li><a href="{{ url('/') }}">Корзина</a></li>
                     <li><a href="{{ url('/auth/login') }}">Увійти</a></li>
                     <li><a href="{{ url('/auth/register') }}">Зареєструватись</a></li>
                 @else

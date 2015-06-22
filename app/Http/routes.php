@@ -4,6 +4,10 @@ View::composer('menu.left', function($view){
     $view->with('menuitems', App\category::all()->where('active',1));
 });
 
+View::composer(['cart.shortlist','cart.myCart'], function($view){
+    $view->with('prod_cart', App\Product::getCart());
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -70,6 +74,8 @@ Route::group(['as' => 'dashboard','middleware' => 'auth'], function () {
 
 Route::get('/category/{id}/show', 'CategoryController@index');
 Route::get('/', 'ProductsController@index');
+Route::post('/cart/add', 'ProductsController@CartAdd');
+Route::get('/my/cart', 'UserController@MyCart');
 
 Route::resource('product', 'ProductsController');
 Route::resource('indigrient', 'IndigrientController');

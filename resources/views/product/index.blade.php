@@ -5,7 +5,7 @@
     <div class="row center-block">
         <?php foreach ($products as $product) {?>
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                <a href="#" class="center-block thumbnail" >
+                <a href="/product/{{$product->id}}" class="center-block thumbnail" >
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <span class="text-center help-block" style="font-size:14pt;">{{$product->name}}</span><br/>
                     </div>

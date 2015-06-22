@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use App\Product;
 use App\Indigrient;
 use App\ProdToInd;
@@ -29,67 +30,39 @@ class ProductsController extends Controller
         return view('product.index', ['products' => $products]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function show($id)
     {
-        //
+        return view('product.show', [
+            'product'=> Product::find($id),
+            'url'=>'/cart/add'
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+
+    private function setCookies($data)
     {
-        //
+        Cookie::queue(Cookie::make('cart', $data, 'minutes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
+    private function find_repeat($xx,$yy){
+        for($i=0;$i<count($xx);$i++){
+            if ($xx[$i]['product_id'] == $yy['product_id']){
+                (int)$xx[$i]['qty']=$xx[$i]['qty']+$yy['qty'];
+                return $xx;
+            }
+        }
+        array_push($xx,$yy);
+        return $xx;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function CartAdd(Request $request){
+        $input = \Input::all();
+        if (Cookie::get('cart')==null){
+            $this->setCookies($this->find_repeat([],$input));
+        }else{
+            $this->setCookies($this->find_repeat(Cookie::get('cart'),$input));
+        }
+        return redirect()->back();
     }
 }

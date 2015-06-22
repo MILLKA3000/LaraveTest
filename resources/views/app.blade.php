@@ -37,18 +37,19 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
+                    <li><a class="cart" href="{{ url('/my/cart') }}">Корзина</a></li>
+                    @include('cart.shortlist')
+
+
 					@if (Auth::guest())
-                        <li><a href="{{ url('/') }}">Корзина</a></li>
 						<li><a href="{{ url('/auth/login') }}">Увійти</a></li>
 						<li><a href="{{ url('/auth/register') }}">Зареєструватись</a></li>
 					@else
-                        <li><a href="{{ url('/') }}">Корзина</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->fname.' '.Auth::user()->lname }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/dashboard/') }}">Адмін</a></li>
 								<li><a href="{{ url('/auth/logout') }}">Вийти</a></li>
-
 							</ul>
 						</li>
 					@endif
@@ -59,7 +60,6 @@
     @if (Session::has('flash_notification.message'))
     <div class="alert alert-{{ Session::get('flash_notification.level') }}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
         {{ Session::get('flash_notification.message') }}
     </div>
     @endif
